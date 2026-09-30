@@ -6,7 +6,7 @@ import { novaDisciplina } from './factory/disciplinasFactory.js';
 import dadosTeste from './fixtures/payloads.json' with { type: 'json' };
 import mongoose from 'mongoose';
 
-describe('Fluxo Acadêmico - Passos Separados', () => {
+describe('Fluxo Acadêmico', () => {
     
     // Variáveis partilhadas entre os testes sequenciais
     let aluno;
@@ -56,7 +56,7 @@ describe('Fluxo Acadêmico - Passos Separados', () => {
 
     // Mantemos o Data-Driven para a entrega dos trabalhos baseados no JSON
     for (const dadosTrabalho of dadosTeste.trabalhos) {
-        it(`4. Deve fazer login como Aluno e registrar a entrega: "${dadosTrabalho.titulo}"`, async () => {
+        it('4. Deve fazer login como Aluno e registrar a entrega: "${dadosTrabalho.titulo}"', async () => {
             const resposta = await api()
                 .post(`/api/alunos/${idAluno}/trabalhos`)
                 .set('Content-Type', 'application/json')
