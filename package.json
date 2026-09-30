@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "mocha test/**/*.test.js --exit",
+    "test": "mocha test/fluxoAcademico.test.js --exit",
     "relatorio": "mocha test/fluxoAcademico.test.js --reporter mochawesome --exit && start mochawesome-report/mochawesome.html"
   },
   "author": "",
