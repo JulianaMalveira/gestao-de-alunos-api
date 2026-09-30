@@ -34,6 +34,13 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Esperar pelo MongoDB ficar pronto
+        run: |
+          until nc -z localhost 27017; do
+            echo "A aguardar pelo MongoDB..."
+            sleep 2
+          done
+
       - name: Executar testes
         run: npm test
         env:
