@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos-test
+      ADMIN_USER: admin@escola.com
+      ADMIN_PASSWORD: admin123
 
     services:
       mongodb:
@@ -34,14 +38,26 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Esperar pelo MongoDB ficar pronto
+      - name: Iniciar API e executar testes
         run: |
-          until nc -z localhost 27017; do
-            echo "A aguardar pelo MongoDB..."
+          node src/server.js > /tmp/gestao-de-alunos-api.log 2>&1 &
+          api_pid=$!
+          trap 'kill "$api_pid" 2>/dev/null || true' EXIT
+
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
+              npm test
+              exit 0
+            fi
+
+            if ! kill -0 "$api_pid" 2>/dev/null; then
+              cat /tmp/gestao-de-alunos-api.log
+              exit 1
+            fi
+
             sleep 2
           done
 
-      - name: Executar testes
-        run: npm test
-        env:
-          MONGO_URI: mongodb://127.0.0.1:27017/gestao-de-alunos-test
+          cat /tmp/gestao-de-alunos-api.log
+          echo "A API não ficou disponível dentro do tempo esperado."
+          exit 1
