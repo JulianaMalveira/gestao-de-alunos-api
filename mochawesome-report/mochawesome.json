@@ -1,0 +1,195 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 5,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-09-30T01:49:21.960Z",
+    "end": "2026-09-30T01:49:22.204Z",
+    "duration": 244,
+    "testsRegistered": 5,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b1e47c1a-7fb4-4812-b87c-baaabe8c6286",
+      "title": "",
+      "fullFile": "C:\\Users\\moren\\OneDrive\\01 Pós Julio de Lima\\07 Automação de Testes na Camada de Serviço (API)\\Trabalho Final\\gestao-de-alunos-api\\test\\fluxoAcademico.test.js",
+      "file": "\\test\\fluxoAcademico.test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+          "title": "Fluxo Acadêmico - Passos Separados",
+          "fullFile": "C:\\Users\\moren\\OneDrive\\01 Pós Julio de Lima\\07 Automação de Testes na Camada de Serviço (API)\\Trabalho Final\\gestao-de-alunos-api\\test\\fluxoAcademico.test.js",
+          "file": "\\test\\fluxoAcademico.test.js",
+          "beforeHooks": [],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Fluxo Acadêmico - Passos Separados\"",
+              "fullTitle": "Fluxo Acadêmico - Passos Separados \"after all\" hook in \"Fluxo Acadêmico - Passos Separados\"",
+              "timedOut": false,
+              "duration": 1,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await mongoose.connection.close();",
+              "err": {},
+              "uuid": "ae471e37-738f-4461-babb-d16e8932e036",
+              "parentUUID": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "1. Deve fazer login como Administrador e cadastrar um novo aluno",
+              "fullTitle": "Fluxo Acadêmico - Passos Separados 1. Deve fazer login como Administrador e cadastrar um novo aluno",
+              "timedOut": false,
+              "duration": 154,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "aluno = novoAluno();\nconst resposta = await api()\n    .post('/api/admin/alunos')\n    .set('Content-Type', 'application/json')\n    .set('Authorization', await getAdminToken())\n    .send(aluno);\n\nexpect(resposta.status).to.equal(201);\nidAluno = resposta.body.id;\nexpect(idAluno).to.be.a('string');",
+              "err": {},
+              "uuid": "2fc3f43b-a2e1-439a-94f0-89ae07466b6e",
+              "parentUUID": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "2. Deve cadastrar uma nova disciplina como Administrador",
+              "fullTitle": "Fluxo Acadêmico - Passos Separados 2. Deve cadastrar uma nova disciplina como Administrador",
+              "timedOut": false,
+              "duration": 5,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const resposta = await api()\n    .post('/api/admin/disciplinas')\n    .set('Content-Type', 'application/json')\n    .set('Authorization', await getAdminToken())\n    .send(novaDisciplina());\n\nexpect(resposta.status).to.equal(201);\nidDisciplina = resposta.body.id;\nexpect(idDisciplina).to.be.a('string');",
+              "err": {},
+              "uuid": "77501227-2fd8-45c4-9a3b-2a4433c5c313",
+              "parentUUID": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "3. Deve matricular o aluno recém-criado na disciplina",
+              "fullTitle": "Fluxo Acadêmico - Passos Separados 3. Deve matricular o aluno recém-criado na disciplina",
+              "timedOut": false,
+              "duration": 7,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const resposta = await api()\n    .post(`/api/admin/disciplinas/${idDisciplina}/matriculas`)\n    .set('Content-Type', 'application/json')\n    .set('Authorization', await getAdminToken())\n    .send({ alunoId: idAluno });\n\nexpect(resposta.status).to.equal(201);\nexpect(resposta.body.alunoId).to.equal(idAluno);\nexpect(resposta.body.disciplinaId).to.equal(idDisciplina);",
+              "err": {},
+              "uuid": "6d890ca3-84b4-4dfa-8ac1-e72ada7a6acd",
+              "parentUUID": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Deve fazer login como Aluno e registrar a entrega: \"Entrega 1: Testes Automatizados de API\"",
+              "fullTitle": "Fluxo Acadêmico - Passos Separados 4. Deve fazer login como Aluno e registrar a entrega: \"Entrega 1: Testes Automatizados de API\"",
+              "timedOut": false,
+              "duration": 64,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const resposta = await api()\n    .post(`/api/alunos/${idAluno}/trabalhos`)\n    .set('Content-Type', 'application/json')\n    .set('Authorization', await getUserToken(aluno))\n    .send({ \n        disciplinaId: idDisciplina, \n        ...dadosTrabalho \n    });\n\nexpect(resposta.status).to.equal(201);\nexpect(resposta.body.alunoId).to.equal(idAluno);\nexpect(resposta.body.disciplinaId).to.equal(idDisciplina);",
+              "err": {},
+              "uuid": "807cc1b1-77f7-499d-8569-19f26da3ec28",
+              "parentUUID": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Deve fazer login como Aluno e registrar a entrega: \"Entrega Final: Cobertura Completa de Serviços\"",
+              "fullTitle": "Fluxo Acadêmico - Passos Separados 4. Deve fazer login como Aluno e registrar a entrega: \"Entrega Final: Cobertura Completa de Serviços\"",
+              "timedOut": false,
+              "duration": 7,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const resposta = await api()\n    .post(`/api/alunos/${idAluno}/trabalhos`)\n    .set('Content-Type', 'application/json')\n    .set('Authorization', await getUserToken(aluno))\n    .send({ \n        disciplinaId: idDisciplina, \n        ...dadosTrabalho \n    });\n\nexpect(resposta.status).to.equal(201);\nexpect(resposta.body.alunoId).to.equal(idAluno);\nexpect(resposta.body.disciplinaId).to.equal(idDisciplina);",
+              "err": {},
+              "uuid": "023f70f5-479b-470a-9223-f6dc99aebc04",
+              "parentUUID": "c01b040d-7d26-4aaf-92d3-8dd0d6288c06",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2fc3f43b-a2e1-439a-94f0-89ae07466b6e",
+            "77501227-2fd8-45c4-9a3b-2a4433c5c313",
+            "6d890ca3-84b4-4dfa-8ac1-e72ada7a6acd",
+            "807cc1b1-77f7-499d-8569-19f26da3ec28",
+            "023f70f5-479b-470a-9223-f6dc99aebc04"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 237,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.8.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.1.1"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.2"
+    }
+  }
+}

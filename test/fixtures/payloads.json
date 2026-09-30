@@ -1,0 +1,12 @@
+{
+    "trabalhos": [
+        {
+            "titulo": "Entrega 1: Testes Automatizados de API",
+            "descricao": "Validação de endpoints REST com Mocha, Chai e Supertest"
+        },
+        {
+            "titulo": "Entrega Final: Cobertura Completa de Serviços",
+            "descricao": "Relatório de testes e automação do fluxo acadêmico"
+        }
+    ]
+}
